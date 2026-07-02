@@ -1,0 +1,10 @@
+{:itonami.blueprint/id "cloud-itonami-isco-5249"
+ :itonami.blueprint/name "Independent Sales Practice"
+ :itonami.blueprint/isco-08 "5249"
+ :itonami.blueprint/domain :retail/general-sales
+ :itonami.blueprint/license "AGPL-3.0-or-later"
+ :itonami.blueprint/social-impact [:local-jobs :customer-access :small-retail-viability]
+ :itonami.blueprint/governor :general-sales-governor
+ :itonami.blueprint/robotics true
+ :itonami.blueprint/required-technologies [:robotics :forms :identity :audit-ledger :bpmn]
+ :itonami.blueprint/status :public-oss}
