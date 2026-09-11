@@ -63,17 +63,17 @@ human-in-the-loop interrupt/resume via checkpointing.
                                            +-> :hold               (:hard? true)
 ```
 
-- `src/general_sales/store.cljc` — `Store` protocol +
+- `src/general_sales/store.cljk` — `Store` protocol +
   `MemStore`: registered sales, committed records, an append-only
   audit ledger.
-- `src/general_sales/advisor.cljc` — `Advisor` protocol;
+- `src/general_sales/advisor.cljk` — `Advisor` protocol;
   `mock-advisor` (deterministic, default) proposes a sell or fulfill
   operation from a request; `llm-advisor` wraps a
   `langchain.model/ChatModel` — either way the advisor only ever
   produces a `:propose`-effect proposal, never a committed record, and
   LLM parse failures always yield `confidence 0.0` (forces escalation,
   never fabricated confidence).
-- `src/general_sales/governor.cljc` —
+- `src/general_sales/governor.cljk` —
   `GeneralSalesGovernor/check`: a pure function, wired as its own
   `:govern` node. Hard invariants (unregistered sale, a proposal
   whose `:effect` isn't `:propose`) always route to `:hold`. Escalation
@@ -84,7 +84,7 @@ human-in-the-loop interrupt/resume via checkpointing.
   (`actor/approve!`), matching the README's robotics-premise statement
   that offering a deep discretionary discount, or handling a
   regulated-product sale, always require human sign-off.
-- `src/general_sales/actor.cljc` — `build-graph`, `run-request!`,
+- `src/general_sales/actor.cljk` — `build-graph`, `run-request!`,
   `approve!`: the `langgraph.graph/state-graph` wiring itself.
 
 ```bash
