@@ -1,5 +1,5 @@
 (ns general-sales.governor-test
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [general-sales.store :as store]
             [general-sales.governor :as governor]))
 
