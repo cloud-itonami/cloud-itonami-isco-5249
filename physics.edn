@@ -1,0 +1,32 @@
+;; What this vertical's robot physically does, declared for
+;; kotoba.robotics.process (kotoba-lang/robotics). `kbb -M:physics` runs it.
+;;
+;; README "Robotics premise": a sales-floor-assist robot performs product
+;; retrieval, display restocking and receipt handling. Declared here: the
+;; product-retrieval leg from the stock room to the customer on the floor,
+;; and a case of product lifted from the cart onto the upper display shelf.
+;;
+;; Every number without a cited source is marked `estimate` in its :basis.
+;; Replacing an estimate with a sourced value is this bot's growth work.
+{:physics/schema "itonami.physical-ai.spec.v1"
+ :repo "cloud-itonami/cloud-itonami-isco-5249"
+ :cases
+ [{:id :stockroom-retrieval-leg
+   :kind :transport
+   :procedure "robot fetches the requested product from the stock room and brings it to the customer on the sales floor"
+   :params {:mass-kg 45.0 :distance-m 30.0 :v-max-mps 1.0 :a-max-mps2 0.5
+            :brake-decel-mps2 0.8 :drive-force-n 55.0 :crr 0.02
+            :cog-height-m 0.60 :support-half-length-m 0.28}
+   :sweep {:param :payload-kg :values [2.0 10.0 25.0 50.0 80.0 120.0]}
+   :quantity :cycle-time-s
+   :limit {:max 36.0 :basis "estimate: the customer is not kept waiting more than about half a minute per leg for a stock-room fetch"}
+   :boundary {:lo 1.0 :hi 200.0}}
+  {:id :case-to-upper-display
+   :kind :manipulator
+   :procedure "arm lifts a case of product from the restock cart onto the upper display shelf"
+   :params {:l1-m 0.55 :l2-m 0.50 :m1-kg 5.0 :m2-kg 3.5
+            :from [0.55 0.00] :to [0.30 0.95] :duration-s 2.5 :steps 500}
+   :sweep {:param :payload-kg :values [1.0 3.0 6.0 9.0 12.0]}
+   :quantity :peak-tau1-nm
+   :limit {:max 100.0 :basis "estimate: continuous shoulder torque of a ~10 kg-payload collaborative arm"}
+   :boundary {:lo 0.2 :hi 30.0}}]}
